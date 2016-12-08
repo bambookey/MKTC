@@ -11,7 +11,7 @@ public class Main {
 	public static final String FILE_PATH_STOPWORDS = "./data/stopwords";
 	public static HashSet<String> stopWords = new HashSet<String>();
 	public static HashSet<String> words = new HashSet<String>();
-	public static ArrayList<OTwitter> otList = new ArrayList<OTwitter>();
+	public static ArrayList<OTwitter> otList = new ArrayList<OTwitter>();//存所有的twitter
 
 	public static void main(String[] args) throws Exception {
 		loadStopWords();
@@ -30,7 +30,7 @@ public class Main {
 			}
 			String[] olineWords = oline.split(" ");
 			for (int i = 0; i < olineWords.length; i++) {
-				String w = olineWords[i].trim();
+				String w = olineWords[i].trim().toLowerCase();
 				if (stopWords.contains(w)) {
 					continue;
 				} else {
@@ -48,7 +48,7 @@ public class Main {
 			String[] olineWords = oline.split(" ");
 			ArrayList<String> olineWordsCleaned = new ArrayList<String>();
 			for (int i = 0; i < olineWords.length; i++) {
-				String w = olineWords[i];
+				String w = olineWords[i].trim().toLowerCase();
 				if (stopWords.contains(w)) {
 					continue;
 				} else {
@@ -76,7 +76,7 @@ public class Main {
 			int index = getIndex(words, w);
 			vec[index]++;
 		}
-		return new OTwitter(text, -1, vec);
+		return new OTwitter(text, -1, vec, olineWordsCleaned);
 	}
 
 	/**

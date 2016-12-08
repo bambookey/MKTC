@@ -59,6 +59,16 @@ public class KMeans {
 			// 2.2. refresh center
 			centerList = refreshCenter(otList, k);
 		}
+		
+		for(int i = 0 ; i < k; i++) {
+			ArrayList<OTwitter> clusteredList = new ArrayList<OTwitter> ();
+			for(int j = 0 ; j < len ; j++) {
+				if(otList.get(j).cluster == i) {
+					clusteredList.add(otList.get(j));
+				}
+			}
+			TFIDF.TwitterTfidf(clusteredList);
+		}
 	}
 
 	public static ArrayList<OTwitter> refreshCenter(ArrayList<OTwitter> otList, int k) {
