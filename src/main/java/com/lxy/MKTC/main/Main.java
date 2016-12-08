@@ -30,7 +30,7 @@ public class Main {
 			}
 			String[] olineWords = oline.split(" ");
 			for (int i = 0; i < olineWords.length; i++) {
-				String w = olineWords[i];
+				String w = olineWords[i].trim();
 				if (stopWords.contains(w)) {
 					continue;
 				} else {
