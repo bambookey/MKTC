@@ -93,7 +93,7 @@ public class KMeans {
 		System.out.println(strCntByType);
 		return centerList;
 	}
-
+	
 	public static double[] vecDiv(double[] vec, double div) {
 		for (int i = 0; i < vec.length; i++) {
 			vec[i] = vec[i] / div;

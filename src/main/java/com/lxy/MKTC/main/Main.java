@@ -16,7 +16,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		loadStopWords();
 		loadTwitter();
-		KMeans.TwitterKmeans(otList, 10);
+		KMeans.TwitterKmeans(otList, 8);
 	}
 
 	public static void loadTwitter() throws Exception {
@@ -58,6 +58,7 @@ public class Main {
 			OTwitter ot = word2VecTwitter(oline, olineWordsCleaned);
 			otList.add(ot);
 		}
+		br.close();
 	}
 
 	public static void loadStopWords() throws Exception {

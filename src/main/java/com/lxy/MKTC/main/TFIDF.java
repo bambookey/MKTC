@@ -11,8 +11,12 @@ import java.util.TreeMap;
 
 public class TFIDF {
 	/**
-	 * 求一个聚类中的TF-IDF @Title: TwitterTfidf @Description: TODO @param @param
-	 * twitterFromACluster @return void @throws
+	 * 求一个聚类中的TF-IDF
+	 * @Title: TwitterTfidf 
+	 * @Description: TODO
+	 * @param @param twitterFromACluster
+	 * @return void
+	 * @throws
 	 */
 	public static void TwitterTfidf(ArrayList<OTwitter> twitterFromACluster) {
 		if(twitterFromACluster == null || twitterFromACluster.size() == 0) {
@@ -47,9 +51,7 @@ public class TFIDF {
 				}
 			}
 			double idf = Math.log((double) textDataLen / ((double) textContainKeyLen + 1.0));
-
 			double tfidf = tf * idf;
-
 			wordTfIdfSort.put(key, tfidf);
 		}
 
@@ -67,8 +69,8 @@ public class TFIDF {
 			}  
 		);  
 	    
-		// 根据tf-idf值排序
-		System.out.println(String.format("CLUSTER %d:", twitterFromACluster.get(0).cluster));
+		// 根据tf-idf值排序,输出
+		System.out.println(String.format("CLUSTER %d TF-IDF RESULTS:", twitterFromACluster.get(0).cluster));
 		LinkedHashMap<String,Double> sorted_map = new LinkedHashMap<String,Double>();
 		for(Map.Entry<String, Double> e : list_Data) {
 			sorted_map.put(e.getKey(), e.getValue());

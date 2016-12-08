@@ -28,7 +28,7 @@ public class Utils {
 			downer2 += v2[i] * v2[i];
 			upper += v1[i] * v2[i];
 		}
-		downer = Math.sqrt(downer1) * Math.sqrt(downer2) + 1.0;
+		downer = Math.sqrt(downer1) * Math.sqrt(downer2) + 0.0001;//这里的0.0001是不应该加的，但是在一些情况下会存在分母为0的异常
 		if (downer == 0) {
 			throw new Exception("Illegal Cal Result!! downer==0");
 		}
@@ -47,7 +47,7 @@ public class Utils {
 	 */
 	public static String getCleanWord(String w) {
 		String[] filter = {",", ".", "!", "@", "#", "$", "%", "^", "&", "*", "?", "(", ")", " ", 
-				"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "|", "\"", ":", ";"
+				"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "|", "\"", ":", ";", "'"
 				};
 		for(String f : filter) {
 			w = w.replace(f, "");
