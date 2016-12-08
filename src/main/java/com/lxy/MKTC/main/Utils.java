@@ -28,7 +28,7 @@ public class Utils {
 			downer2 += v2[i] * v2[i];
 			upper += v1[i] * v2[i];
 		}
-		downer = Math.sqrt(downer1) * Math.sqrt(downer2);
+		downer = Math.sqrt(downer1) * Math.sqrt(downer2) + 1.0;
 		if (downer == 0) {
 			throw new Exception("Illegal Cal Result!! downer==0");
 		}
@@ -36,5 +36,22 @@ public class Utils {
 		res = upper / downer;
 		return res;
 	}
-
+	/**
+	 * 单词清理
+	 * @Title: getCleanWord 
+	 * @Description: TODO
+	 * @param @param w
+	 * @param @return
+	 * @return String
+	 * @throws
+	 */
+	public static String getCleanWord(String w) {
+		String[] filter = {",", ".", "!", "@", "#", "$", "%", "^", "&", "*", "?", "(", ")", " ", 
+				"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "|", "\"", ":", ";"
+				};
+		for(String f : filter) {
+			w = w.replace(f, "");
+		}
+		return w.toLowerCase().trim();
+	}
 }

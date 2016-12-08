@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 
 public class TFIDF {
@@ -52,29 +53,30 @@ public class TFIDF {
 			wordTfIdfSort.put(key, tfidf);
 		}
 
+		
+		List<Map.Entry<String, Double>> list_Data = new ArrayList<Map.Entry<String, Double>>(wordTfIdfSort.entrySet());   
+	    Collections.sort(list_Data, new Comparator<Map.Entry<String, Double>>() {    
+			public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {  
+				if ((o2.getValue() - o1.getValue())>0)  
+					return 1;  
+				else if((o2.getValue() - o1.getValue())==0)  
+					return 0;  
+				else   
+					return -1;  
+				}  
+			}  
+		);  
+	    
 		// 根据tf-idf值排序
-		System.out.println(String.format("CLUSTER %d", twitterFromACluster.get(0).cluster));
-		wordTfIdfSort = sortMap(wordTfIdfSort); 
+		System.out.println(String.format("CLUSTER %d:", twitterFromACluster.get(0).cluster));
+		LinkedHashMap<String,Double> sorted_map = new LinkedHashMap<String,Double>();
+		for(Map.Entry<String, Double> e : list_Data) {
+			sorted_map.put(e.getKey(), e.getValue());
+		} 
 		int cnt = 0;
-		for(String k : wordTfIdfSort.keySet()) {
-			System.out.println(String.format("%s : %f", k, wordTfIdfSort.get(k)));
+		for(String k : sorted_map.keySet()) {
+			System.out.println(String.format("%s : %f", k, sorted_map.get(k)));
 			if(cnt++ > 15) break;
 		}
 	}
-	
-	public static Map sortMap(Map oldMap) {  
-        ArrayList<Map.Entry<String, Double>> list = new ArrayList<Map.Entry<String, Double>>(oldMap.entrySet());  
-        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {  
-  
-            public int compare(Entry<java.lang.String, Double> arg0,  
-                    Entry<java.lang.String, Double> arg1) {  
-                return arg0.getValue() - arg1.getValue() > 0 ? 1 : -1;  
-            }  
-        });  
-        Map newMap = new HashMap();  
-        for (int i = 0; i < list.size(); i++) {  
-            newMap.put(list.get(i).getKey(), list.get(i).getValue());  
-        }  
-        return newMap;  
-    }  
 }

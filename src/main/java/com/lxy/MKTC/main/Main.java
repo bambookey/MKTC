@@ -16,7 +16,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		loadStopWords();
 		loadTwitter();
-		KMeans.TwitterKmeans(otList, 15);
+		KMeans.TwitterKmeans(otList, 10);
 	}
 
 	public static void loadTwitter() throws Exception {
@@ -30,8 +30,8 @@ public class Main {
 			}
 			String[] olineWords = oline.split(" ");
 			for (int i = 0; i < olineWords.length; i++) {
-				String w = olineWords[i].trim().toLowerCase();
-				if (stopWords.contains(w)) {
+				String w = Utils.getCleanWord(olineWords[i]);
+				if (stopWords.contains(w) || w.length() <= 2) {
 					continue;
 				} else {
 					words.add(w);
@@ -48,8 +48,8 @@ public class Main {
 			String[] olineWords = oline.split(" ");
 			ArrayList<String> olineWordsCleaned = new ArrayList<String>();
 			for (int i = 0; i < olineWords.length; i++) {
-				String w = olineWords[i].trim().toLowerCase();
-				if (stopWords.contains(w)) {
+				String w = Utils.getCleanWord(olineWords[i]);
+				if (stopWords.contains(w) || w.length() <= 2) {
 					continue;
 				} else {
 					olineWordsCleaned.add(w);
@@ -65,8 +65,9 @@ public class Main {
 		BufferedReader br = new BufferedReader(new FileReader(new File(FILE_PATH_STOPWORDS)));
 		String oline = "";
 		while ((oline = br.readLine()) != null) {
-			stopWords.add(oline);
+			stopWords.add(Utils.getCleanWord(oline));
 		}
+		br.close();
 	}
 
 	public static OTwitter word2VecTwitter(String text, ArrayList<String> olineWordsCleaned) throws Exception {
